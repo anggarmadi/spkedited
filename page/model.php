@@ -8,14 +8,14 @@ if ($update) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$validasi = false; $err = false;
 	if ($update) {
-		$sql = "UPDATE model SET kd_kriteria='$_POST[kd_kriteria]', kd_beasiswa='$_POST[kd_beasiswa]', bobot='$_POST[bobot]' WHERE kd_model='$_GET[key]'";
+		$sql = "UPDATE model SET kd_kriteria='$_POST[kd_kriteria]', kd_periode='$_POST[kd_periode]', bobot='$_POST[bobot]' WHERE kd_model='$_GET[key]'";
 	} else {
-		$sql = "INSERT INTO model VALUES (NULL, '$_POST[kd_beasiswa]', '$_POST[kd_kriteria]', '$_POST[bobot]')";
+		$sql = "INSERT INTO model VALUES (NULL, '$_POST[kd_periode]', '$_POST[kd_kriteria]', '$_POST[bobot]')";
 		$validasi = true;
 	}
 
 	if ($validasi) {
-		$q = $connection->query("SELECT kd_model FROM model WHERE kd_beasiswa=$_POST[kd_beasiswa] AND kd_kriteria=$_POST[kd_kriteria] AND bobot LIKE '%$_POST[bobot]%'");
+		$q = $connection->query("SELECT kd_model FROM model WHERE kd_periode=$_POST[kd_periode] AND kd_kriteria=$_POST[kd_kriteria] AND bobot LIKE '%$_POST[bobot]%'");
 		if ($q->num_rows) {
 			echo alert("Model sudah ada!", "?page=model");
 			$err = true;
@@ -41,12 +41,12 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	        <div class="panel-body">
 	            <form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 									<div class="form-group">
-	                  <label for="kd_beasiswa">Beasiswa</label>
-										<select class="form-control" name="kd_beasiswa" id="beasiswa">
+	                  <label for="kd_periode">periode</label>
+										<select class="form-control" name="kd_periode" id="periode">
 											<option>---</option>
-											<?php $sql = $connection->query("SELECT * FROM beasiswa") ?>
+											<?php $sql = $connection->query("SELECT * FROM periode") ?>
 											<?php while ($data = $sql->fetch_assoc()): ?>
-												<option value="<?=$data["kd_beasiswa"]?>"<?= (!$update) ?: (($row["kd_beasiswa"] != $data["kd_beasiswa"]) ?: ' selected="on"') ?>><?=$data["nama"]?></option>
+												<option value="<?=$data["kd_periode"]?>"<?= (!$update) ?: (($row["kd_periode"] != $data["kd_periode"]) ?: ' selected="on"') ?>><?=$data["nama"]?></option>
 											<?php endwhile; ?>
 										</select>
 									</div>
@@ -56,7 +56,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 											<option>---</option>
 											<?php $sql = $connection->query("SELECT * FROM kriteria") ?>
 											<?php while ($data = $sql->fetch_assoc()): ?>
-												<option value="<?=$data["kd_kriteria"]?>" class="<?=$data["kd_beasiswa"]?>"<?= (!$update) ?: (($row["kd_kriteria"] != $data["kd_kriteria"]) ?: ' selected="on"') ?>><?=$data["nama"]?></option>
+												<option value="<?=$data["kd_kriteria"]?>" class="<?=$data["kd_periode"]?>"<?= (!$update) ?: (($row["kd_kriteria"] != $data["kd_kriteria"]) ?: ' selected="on"') ?>><?=$data["nama"]?></option>
 											<?php endwhile; ?>
 										</select>
 									</div>
@@ -80,7 +80,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                <thead>
 	                    <tr>
 	                        <th>No</th>
-													<th>Beasiswa</th>
+													<th>periode</th>
 	                        <th>Kriteria</th>
 	                        <th>Bobot</th>
 	                        <th></th>
@@ -88,11 +88,11 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                </thead>
 	                <tbody>
 	                    <?php $no = 1; ?>
-	                    <?php if ($query = $connection->query("SELECT c.nama AS nama_beasiswa, b.nama AS nama_kriteria, a.bobot, a.kd_model FROM model a JOIN kriteria b ON a.kd_kriteria=b.kd_kriteria JOIN beasiswa c ON a.kd_beasiswa=c.kd_beasiswa")): ?>
+	                    <?php if ($query = $connection->query("SELECT c.nama AS nama_periode, b.nama AS nama_kriteria, a.bobot, a.kd_model FROM model a JOIN kriteria b ON a.kd_kriteria=b.kd_kriteria JOIN periode c ON a.kd_periode=c.kd_periode")): ?>
 	                        <?php while($row = $query->fetch_assoc()): ?>
 	                        <tr>
 	                            <td><?=$no++?></td>
-															<td><?=$row['nama_beasiswa']?></td>
+															<td><?=$row['nama_periode']?></td>
 	                            <td><?=$row['nama_kriteria']?></td>
 	                            <td><?=$row['bobot']?></td>
 	                            <td>
@@ -112,5 +112,5 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 </div>
 
 <script type="text/javascript">
-$("#kriteria").chained("#beasiswa");
+$("#kriteria").chained("#periode");
 </script>

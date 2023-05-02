@@ -10,7 +10,7 @@ if (empty($_SESSION)) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beasiswa</title>
+    <title>periode</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <style>
         body {
@@ -23,7 +23,7 @@ if (empty($_SESSION)) {
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">PENGUMUMAN BEASISWA AKAKOM</a>
+                    <a class="navbar-brand" href="#">PENGUMUMAN periode AKAKOM</a>
                 </div>
             </div><!-- /.container-fluid -->
         </nav>
@@ -37,7 +37,7 @@ if (empty($_SESSION)) {
 			                        <th>No</th>
 			                        <th>NIM</th>
             									<th>Nama</th>
-            									<th>Beasiswa</th>
+            									<th>periode</th>
 			                        <th>Nilai</th>
 			                        <th>Tahun</th>
 			                        <th></th>
@@ -45,13 +45,13 @@ if (empty($_SESSION)) {
 			                </thead>
 			                <tbody>
 			                    <?php $no = 1; ?>
-			                    <?php if ($query = $connection->query("SELECT b.nama AS beasiswa, a.nim, a.nilai, a.tahun, c.nama FROM hasil a JOIN beasiswa b USING(kd_beasiswa) JOIN mahasiswa c ON a.nim=c.nim")): ?>
+			                    <?php if ($query = $connection->query("SELECT b.nama AS periode, a.nim, a.nilai, a.tahun, c.nama FROM hasil a JOIN periode b USING(kd_periode) JOIN mahasiswa c ON a.nim=c.nim")): ?>
 			                        <?php while($row = $query->fetch_assoc()): ?>
 			                        <tr>
 			                            <td><?=$no++?></td>
               										<td><?=$row["nim"]?></td>
               										<td><?=$row["nama"]?></td>
-			                            <td><?=$row["beasiswa"]?></td>
+			                            <td><?=$row["periode"]?></td>
 			                            <td><?=number_format((float) $row["nilai"], 8, '.', '')?></td>
 			                            <td><?=$row['tahun']?></td>
 			                        </tr>

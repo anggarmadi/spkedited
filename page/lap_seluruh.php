@@ -7,23 +7,26 @@
 					<label for="tahun">Tahun :</label>
 					<select class="form-control" name="tahun">
 						<option>---</option>
-						<option value="2017">2017</option>
+						<?php $sql = $connection->query("SELECT DISTINCT tahun_mengajukan FROM mahasiswa") ?>
+						<?php while ($data = $sql->fetch_assoc()): ?>
+							<option value="<?=$data["tahun_mengajukan"]?>"><?=$data["tahun_mengajukan"]?></option>
+						<?php endwhile; ?>
 					</select>
 					<button type="submit" class="btn btn-primary">Tampilkan</button>
 				</form>
 	            <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
 				<?php
-				$q = $connection->query("SELECT b.kd_beasiswa, b.nama, h.nilai, m.nama AS mahasiswa, m.nim, (SELECT MAX(nilai) FROM hasil WHERE nim=h.nim) AS nilai_max FROM mahasiswa m JOIN hasil h ON m.nim=h.nim JOIN beasiswa b ON b.kd_beasiswa=h.kd_beasiswa WHERE m.tahun_mengajukan='$_POST[tahun]'");
-				$beasiswa = []; $data = []; $d = [];
+				$q = $connection->query("SELECT b.kd_periode, b.nama, h.nilai, m.nama AS mahasiswa, m.nim, (SELECT MAX(nilai) FROM hasil WHERE nim=h.nim) AS nilai_max FROM mahasiswa m JOIN hasil h ON m.nim=h.nim JOIN periode b ON b.kd_periode=h.kd_periode WHERE m.tahun_mengajukan='$_POST[tahun]'");
+				$periode = []; $data = []; $d = [];
 				while ($r = $q->fetch_assoc()) {
-					$beasiswa[$r["kd_beasiswa"]] = $r["nama"];
-					$s = $connection->query("SELECT b.nama, a.nilai FROM hasil a JOIN beasiswa b USING(kd_beasiswa) WHERE a.nim=$r[nim] AND a.tahun=$_POST[tahun]");
+					$periode[$r["kd_periode"]] = $r["nama"];
+					$s = $connection->query("SELECT b.nama, a.nilai FROM hasil a JOIN periode b USING(kd_periode) WHERE a.nim=$r[nim] AND a.tahun=$_POST[tahun]");
 					while ($rr = $s->fetch_assoc()){
 						$d[$rr['nama']] = $rr['nilai'];
 					}
 					$m = max($d);
 					$k = array_search($m, $d);
-					$data[$r["nim"]."-".$r["mahasiswa"]."-".$r["nilai_max"]."-".$k][$r["kd_beasiswa"]] = $r["nilai"];
+					$data[$r["nim"]."-".$r["mahasiswa"]."-".$r["nilai_max"]."-".$k][$r["kd_periode"]] = $r["nilai"];
 				}
 				?>
 				<hr>
@@ -32,7 +35,7 @@
 	                    <tr>
 							<th>NIM</th>
 							<th>Nama</th>
-							<?php foreach ($beasiswa as $val): ?>
+							<?php foreach ($periode as $val): ?>
 		                        <th><?=$val?></th>
 							<?php endforeach; ?>
 							<th>Nilai Maksimal</th>

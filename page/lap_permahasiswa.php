@@ -15,18 +15,18 @@
 							</form>
 	            <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
 								<?php
-								$q = $connection->query("SELECT b.kd_beasiswa, b.nama, h.nilai, (SELECT MAX(nilai) FROM hasil WHERE nim=h.nim) AS nilai_max FROM mahasiswa m JOIN hasil h ON m.nim=h.nim JOIN beasiswa b ON b.kd_beasiswa=h.kd_beasiswa WHERE m.nim=$_POST[mhs]");
-								$beasiswa = []; $data = [];
+								$q = $connection->query("SELECT b.kd_periode, b.nama, h.nilai, (SELECT MAX(nilai) FROM hasil WHERE nim=h.nim) AS nilai_max FROM mahasiswa m JOIN hasil h ON m.nim=h.nim JOIN periode b ON b.kd_periode=h.kd_periode WHERE m.nim=$_POST[mhs]");
+								$periode = []; $data = [];
 								while ($r = $q->fetch_assoc()) {
-									$beasiswa[$r["kd_beasiswa"]] = $r["nama"];
-									$data[$r["kd_beasiswa"]][] = $r["nilai"];
+									$periode[$r["kd_periode"]] = $r["nama"];
+									$data[$r["kd_periode"]][] = $r["nilai"];
 									$max = $r["nilai_max"];
 								}
 								?>
 								<hr>
 								<table class="table table-condensed">
 									<tbody>
-										<?php $query = $connection->query("SELECT DISTINCT(p.kd_beasiswa), k.nama, n.nilai FROM nilai n JOIN penilaian p USING(kd_kriteria) JOIN kriteria k USING(kd_kriteria) WHERE n.nim=$_POST[mhs] AND n.kd_beasiswa=1"); while ($r = $query->fetch_assoc()): ?>
+										<?php $query = $connection->query("SELECT DISTINCT(p.kd_periode), k.nama, n.nilai FROM nilai n JOIN penilaian p USING(kd_kriteria) JOIN kriteria k USING(kd_kriteria) WHERE n.nim=$_POST[mhs] AND n.kd_periode=1"); while ($r = $query->fetch_assoc()): ?>
 											<tr>
 												<th><?=$r["nama"]?></th>
 												<td>: <?=number_format($r["nilai"], 8)?></td>
@@ -38,7 +38,7 @@
 								<table class="table table-condensed">
 		                <thead>
 		                    <tr>
-													<?php foreach ($beasiswa as $key => $val): ?>
+													<?php foreach ($periode as $key => $val): ?>
 			                        <th><?=$val?></th>
 													<?php endforeach; ?>
 													<th>Nilai Maksimal</th>
@@ -46,7 +46,7 @@
 		                </thead>
 		                <tbody>
 											<tr>
-                        <?php foreach($beasiswa as $key => $val): ?>
+                        <?php foreach($periode as $key => $val): ?>
 	                        <?php foreach($data[$key] as $v): ?>
 															<td><?=number_format($v, 8)?></td>
 													<?php endforeach ?>

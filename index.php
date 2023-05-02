@@ -10,7 +10,7 @@ if (!isset($_SESSION["is_logged"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beasiswa</title>
+    <title>PILMAPRES</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.chained.min.js"></script>
@@ -33,15 +33,15 @@ if (!isset($_SESSION["is_logged"])) {
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" style="font-weight: bold; color: green;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perhitungan <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <?php $query = $connection->query("SELECT * FROM beasiswa"); while ($row = $query->fetch_assoc()): ?>
-                              <li><a href="?page=perhitungan&beasiswa=<?=$row["kd_beasiswa"]?>"><?=$row["nama"]?></a></li>
+                            <?php $query = $connection->query("SELECT * FROM periode"); while ($row = $query->fetch_assoc()): ?>
+                              <li><a href="?page=perhitungan&periode=<?=$row["kd_periode"]?>"><?=$row["nama"]?></a></li>
                             <?php endwhile; ?>
                           </ul>
                         </li>
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Input <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="?page=beasiswa">Data Beasiswa</a></li>
+                            <li><a href="?page=periode">Periode Mapres</a></li>
                             <li class="divider"></li>
                             <li><a href="?page=mahasiswa">Data Mahasiswa</a></li>
                             <li><a href="?page=kriteria">Kriteria</a></li>

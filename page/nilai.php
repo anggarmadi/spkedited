@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST["save"])) {
 	} else {
 		$query = "INSERT INTO nilai VALUES ";
 		foreach ($_POST["nilai"] as $kd_kriteria => $nilai) {
-			$query .= "(NULL, '$_POST[kd_beasiswa]', '$kd_kriteria', '$_POST[nim]', '$nilai'),";
+			$query .= "(NULL, '$_POST[kd_periode]', '$kd_kriteria', '$_POST[nim]', '$nilai'),";
 		}
 		$sql = rtrim($query, ',');
 		$validasi = true;
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST["save"])) {
 
 	if ($validasi) {
 		foreach ($_POST["nilai"] as $kd_kriteria => $nilai) {
-			$q = $connection->query("SELECT kd_nilai FROM nilai WHERE kd_beasiswa=$_POST[kd_beasiswa] AND kd_kriteria=$kd_kriteria AND nim=$_POST[nim] AND nilai LIKE '%$nilai%'");
+			$q = $connection->query("SELECT kd_nilai FROM nilai WHERE kd_periode=$_POST[kd_periode] AND kd_kriteria=$kd_kriteria AND nim=$_POST[nim] AND nilai LIKE '%$nilai%'");
 			if ($q->num_rows) {
 				echo alert("Nilai untuk ".$_POST["nim"]." sudah ada!", "?page=nilai");
 				$err = true;
@@ -60,22 +60,22 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 										<?php endif; ?>
 									</div>
 									<div class="form-group">
-	                  <label for="kd_beasiswa">Beasiswa</label>
+	                  <label for="kd_periode">periode</label>
 										<?php if ($_POST): ?>
-											<?php $q = $connection->query("SELECT nama FROM beasiswa WHERE kd_beasiswa=$_POST[kd_beasiswa]"); ?>
+											<?php $q = $connection->query("SELECT nama FROM periode WHERE kd_periode=$_POST[kd_periode]"); ?>
 											<input type="text"value="<?=$q->fetch_assoc()["nama"]?>" class="form-control" readonly="on">
-											<input type="hidden" name="kd_beasiswa" value="<?=$_POST["kd_beasiswa"]?>">
+											<input type="hidden" name="kd_periode" value="<?=$_POST["kd_periode"]?>">
 										<?php else: ?>
-											<select class="form-control" name="kd_beasiswa" id="beasiswa">
+											<select class="form-control" name="kd_periode" id="periode">
 												<option>---</option>
-												<?php $sql = $connection->query("SELECT * FROM beasiswa"); while ($data = $sql->fetch_assoc()): ?>
-													<option value="<?=$data["kd_beasiswa"]?>"<?= (!$update) ? "" : (($row["kd_beasiswa"] != $data["kd_beasiswa"]) ? "" : 'selected="selected"') ?>><?=$data["nama"]?></option>
+												<?php $sql = $connection->query("SELECT * FROM periode"); while ($data = $sql->fetch_assoc()): ?>
+													<option value="<?=$data["kd_periode"]?>"<?= (!$update) ? "" : (($row["kd_periode"] != $data["kd_periode"]) ? "" : 'selected="selected"') ?>><?=$data["nama"]?></option>
 												<?php endwhile; ?>
 											</select>
 										<?php endif; ?>
 									</div>
 									<?php if ($_POST): ?>
-										<?php $q = $connection->query("SELECT * FROM kriteria WHERE kd_beasiswa=$_POST[kd_beasiswa]"); while ($r = $q->fetch_assoc()): ?>
+										<?php $q = $connection->query("SELECT * FROM kriteria WHERE kd_periode=$_POST[kd_periode]"); while ($r = $q->fetch_assoc()): ?>
 				                <div class="form-group">
 					                  <label for="nilai"><?=ucfirst($r["nama"])?></label>
 														<select class="form-control" name="nilai[<?=$r["kd_kriteria"]?>]" id="nilai">
@@ -106,7 +106,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                        <th>No</th>
 													<th>NIM</th>
 													<th>Nama</th>
-	                        <th>Beasiswa</th>
+	                        <th>periode</th>
 	                        <th>Kriteria</th>
 	                        <th>Nilai</th>
 	                        <th></th>
@@ -114,13 +114,13 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                </thead>
 	                <tbody>
 	                    <?php $no = 1; ?>
-	                    <?php if ($query = $connection->query("SELECT a.kd_nilai, c.nama AS nama_beasiswa, b.nama AS nama_kriteria, d.nim, d.nama AS nama_mahasiswa, a.nilai FROM nilai a JOIN kriteria b ON a.kd_kriteria=b.kd_kriteria JOIN beasiswa c ON a.kd_beasiswa=c.kd_beasiswa JOIN mahasiswa d ON d.nim=a.nim")): ?>
+	                    <?php if ($query = $connection->query("SELECT a.kd_nilai, c.nama AS nama_periode, b.nama AS nama_kriteria, d.nim, d.nama AS nama_mahasiswa, a.nilai FROM nilai a JOIN kriteria b ON a.kd_kriteria=b.kd_kriteria JOIN periode c ON a.kd_periode=c.kd_periode JOIN mahasiswa d ON d.nim=a.nim")): ?>
 	                        <?php while($row = $query->fetch_assoc()): ?>
 	                        <tr>
 	                            <td><?=$no++?></td>
 															<td><?=$row['nim']?></td>
 															<td><?=$row['nama_mahasiswa']?></td>
-	                            <td><?=$row['nama_beasiswa']?></td>
+	                            <td><?=$row['nama_periode']?></td>
 	                            <td><?=$row['nama_kriteria']?></td>
 	                            <td><?=$row['nilai']?></td>
 	                            <td>
@@ -139,6 +139,6 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	</div>
 </div>
 <script type="text/javascript">
-$("#kriteria").chained("#beasiswa");
+$("#kriteria").chained("#periode");
 $("#nilai").chained("#kriteria");
 </script>
