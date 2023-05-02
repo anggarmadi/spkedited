@@ -1,19 +1,18 @@
-## Sistem Pendukung Keputusan Penerimaan Beasiswa (SAW) sederhana
+## Sistem Pendukung Keputusan Pemilihan Mahasiswa Prestasi (SAW) 
 
-### Cara menjalankan
+### Nama Anggota Kelompok
+1. Muhammad Irsyadul Fikri
+2. Thomas Nobel Asfar
+3. Ghina Fitri Hidayah
+4. Hasya Zikra Alfrena
+5. Sukma Anggarmadi
+
+### Cara Menggunakan
 1. Clone repository dengan perintah
 ```
-git clone https://github.com/imamdigmi/simple-dss-beasiswa-saw.git
+git clone https://github.com/anggarmadi/simple-dss-beasiswa-saw.git
 ```
-2. Letakkan directory `simple-dss-beasiswa-saw` di dalam root directory web server
-3. Import database.sql
+2. Letakkan directory di dalam root directory web server
+3. Import databasespk.sql
 4. Ubah Username dan Password pada file config.php
-5. Lalu browse ke ``localhost/simple-dss-beasiswa-saw`` di browser
-
-### Kode Warna
-1. Merah      = danger
-2. Kuning     = yellow
-3. Hijau      = success
-4. Biru       = primary
-5. Putih      = default
-6. Biru Muda  = info
+5. Lalu browse ke localhost sesuai nama folder di browser
