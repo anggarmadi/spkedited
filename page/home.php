@@ -1,6 +1,6 @@
 <body bgcolor="Pink">
 <h1><p align="center">
-<font color="blue">
+<font color="black">
    	Selamat Datang di Sistem Pendukung Keputusan <br>
 	Penentuan Penerima Berprestasi <br>
 	Fakultas Teknologi Informasi <br>

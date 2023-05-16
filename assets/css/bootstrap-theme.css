@@ -3,6 +3,10 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ body {
+  background-color: #fdf0f4;
+}
+
 .btn-default,
 .btn-primary,
 .btn-success,
@@ -336,10 +340,10 @@ fieldset[disabled] .btn-danger.active {
   background-repeat: repeat-x;
 }
 .navbar-default {
-  background-image: -webkit-linear-gradient(top, #fff 0%, #f8f8f8 100%);
-  background-image:      -o-linear-gradient(top, #fff 0%, #f8f8f8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
-  background-image:         linear-gradient(to bottom, #fff 0%, #f8f8f8 100%);
+  background-image: -webkit-linear-gradient(top, #f9e5ec 0%, #f7d3df 100%);
+  background-image:      -o-linear-gradient(top, #f9e5ec 0%, #f7d3df 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f9e5ec), to(#f7d3df));
+  background-image:         linear-gradient(to bottom, #f9e5ec 0%, #f7d3df 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
@@ -550,11 +554,11 @@ fieldset[disabled] .btn-danger.active {
   background-repeat: repeat-x;
 }
 .panel-info > .panel-heading {
-  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #c4e3f3 100%);
-  background-image:      -o-linear-gradient(top, #d9edf7 0%, #c4e3f3 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d9edf7), to(#c4e3f3));
-  background-image:         linear-gradient(to bottom, #d9edf7 0%, #c4e3f3 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffc4e3f3', GradientType=0);
+  background-image: -webkit-linear-gradient(top, #fdbaca 0%, #febaca 100%);
+  background-image:      -o-linear-gradient(top, #fdbaca 0%, #febaca 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fdbaca), to(#febaca));
+  background-image:         linear-gradient(to bottom, #fdbaca 0%, #febaca 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffdbaca', endColorstr='#fffebaca', GradientType=0);
   background-repeat: repeat-x;
 }
 .panel-warning > .panel-heading {
