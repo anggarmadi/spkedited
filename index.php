@@ -15,6 +15,10 @@ if (!isset($_SESSION["is_logged"])) {
     <link rel="stylesheet" href="assets/css/bootstrap-theme.css">
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.chained.min.js"></script>
+    <link rel="stylesheet" href="assets/css/fontden.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body {
             margin-top: 40px;
